@@ -1,6 +1,10 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
-from src.domain.models.todoEntity import TodoEntity 
+from src.infra.configuration.sqlAlchemyConfiguration import get_db_session
+from src.useCases.todo.newTodoUseCase import NewTodoUseCase, Request
+from src.infra.repositories.todoDatabaseRepository import SqlAlchemyTodoRepository
+
 from src.infra.mappers.todoMapper import TodoMapper
 
 router = APIRouter()
@@ -11,8 +15,14 @@ async def todo():
     return "todo!"
 
 @router.post("/todo/new", response_model=None)
-async def newTodo():
-    return "new Todo!"
+async def newTodo(request: Request, db: Session = Depends(get_db_session)):
+    
+    todoEntity =  await NewTodoUseCase(SqlAlchemyTodoRepository(db)).execute(request)
+    
+    print(todoEntity.data)
+    
+    return TodoMapper.DomainToHttp(todoEntity.data)
+
   
 @router.get("/todo/list", response_model=None)
 async def newTodo():

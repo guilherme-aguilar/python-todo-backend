@@ -27,3 +27,14 @@ class SqlAlchemyTodoRepository(TodoRepository):
             # Commit para persistir no banco de dados
             db_session.commit()
 
+    def findById(self, id: int):
+        # Implementação para encontrar um todo pelo ID
+        pass
+
+    def find_all(self):
+        # Implementação para encontrar todos os todos
+        pass
+
+    def update(self, todo):
+        # Implementação para atualizar um todo
+        pass

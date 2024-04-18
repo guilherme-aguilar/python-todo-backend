@@ -9,7 +9,7 @@ class Request(BaseModel):
 class Response(BaseModel):
     data: TodoEntity
 
-class CreateTodoUseCase:
+class NewTodoUseCase:
     def __init__(self, TodoRepository: TodoRepository):
         self.TodoRepository = TodoRepository
         

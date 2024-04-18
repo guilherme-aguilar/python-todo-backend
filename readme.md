@@ -12,3 +12,6 @@
 ## Dependencias
 - **fastAPI**
 - **sqlalchemy**
+
+## Comandos
+- **Inicializar Projeto:** python -m uvicorn main:app --reload 
