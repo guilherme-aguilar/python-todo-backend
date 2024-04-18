@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 
 from src.infra.configuration.sqlAlchemyConfiguration import get_db_session
 from src.useCases.todo.newTodoUseCase import NewTodoUseCase, Request
+
+
 from src.infra.repositories.todoDatabaseRepository import SqlAlchemyTodoRepository
 
 from src.infra.mappers.todoMapper import TodoMapper
@@ -23,7 +25,14 @@ async def newTodo(request: Request, db: Session = Depends(get_db_session)):
     
     return TodoMapper.DomainToHttp(todoEntity.data)
 
-  
+
+from src.useCases.todo.ListAllTodoUseCase import ListAllTodoUseCase
+
 @router.get("/todo/list", response_model=None)
-async def newTodo():
-    return "Todos!"
+async def listAllTodo(db: Session = Depends(get_db_session)):
+    
+    todoListEntity = await ListAllTodoUseCase(
+      SqlAlchemyTodoRepository(db)
+      ).execute()
+    
+    return list(map(TodoMapper.DomainToHttp, todoListEntity.data))

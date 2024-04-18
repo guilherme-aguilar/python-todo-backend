@@ -7,22 +7,16 @@ class Request(BaseModel):
     description: str
 
 class Response(BaseModel):
-    data: TodoEntity
+    data: list[TodoEntity]
 
-class NewTodoUseCase:
+class ListAllTodoUseCase:
     def __init__(self, TodoRepository: TodoRepository):
         self.TodoRepository = TodoRepository
         
-    async def execute(self, request: Request) -> Response:
+    async def execute(self) -> Response:
         
-        todo = TodoEntity({
-            "title": request.title, 
-            "description": request.description
-        })
-        
-
-        await self.TodoRepository.create(todo)
+        todoList = await self.TodoRepository.find_all()
         
         return Response(
-          data = todo
+          data = todoList
           )

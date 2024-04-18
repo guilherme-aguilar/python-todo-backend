@@ -15,15 +15,23 @@ class TodoM:
 class TodoEntity:
     def __init__(
         self,
-        title: str,
-        description: str,
-        status: Optional[str] = "pendente",
-        created_at: datetime = datetime.now(),
-        updated_at: Optional[datetime] = None,
-        id: Optional[str] = None
+        data: dict,
+        _id: Optional[str] = None,
     ):
-        self._id = id or str(uuid4())
-        self.props = TodoM(title, description, status,created_at, updated_at)
+        title = data.get('title')
+        description = data.get('description')
+        status = data.get('status', 'pendente')
+        created_at = data.get('created_at', datetime.now())
+        updated_at = data.get('updated_at')
+        
+        self._id = _id or str(uuid4())
+        self.props = TodoM(
+            title=title,
+            description=description,
+            status=status,
+            created_at=created_at,
+            updated_at=updated_at
+        )
 
     @property
     def id(self) -> str:
@@ -35,7 +43,8 @@ class TodoEntity:
 
     @title.setter
     def title(self, value: str):
-        if (self.props.title != None) : self.updated()
+        if self.props.title is not None:
+            self.updated()
         self.props.title = value
 
     @property
@@ -44,12 +53,13 @@ class TodoEntity:
 
     @description.setter
     def description(self, value: str):
-        if (self.props.description != None) : self.updated()
+        if self.props.description is not None:
+            self.updated()
         self.props.description = value
 
     @property
     def status(self) -> Optional[str]:
-      return self.props.status
+        return self.props.status
 
     @property
     def created_at(self) -> datetime:
@@ -70,7 +80,7 @@ class TodoEntity:
     def setStatusCompleted(self):
         self.props.status = "concluído"
         self.updated()
-        
 
     def to_model(self) -> TodoM:
         return self.props
+
