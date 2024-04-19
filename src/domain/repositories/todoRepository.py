@@ -20,3 +20,7 @@ class TodoRepository(ABC):
     @abstractmethod
     def update(self, todo: TodoEntity) -> None:
         pass
+    
+    @abstractmethod
+    def delete(self, id: str) -> None:
+        pass

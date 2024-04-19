@@ -26,7 +26,7 @@ async def newTodo(request: RequestNew, db: Session = Depends(get_db_session)):
     return TodoMapper.DomainToHttp(todoEntity.data)
 
 
-from src.useCases.todo.ListAllTodoUseCase import ListAllTodoUseCase
+from src.useCases.todo.listAllTodoUseCase import ListAllTodoUseCase
 
 @router.get("/todo/list", response_model=None)
 async def listAllTodo(db: Session = Depends(get_db_session)):
@@ -48,11 +48,20 @@ async def listAllTodo(request: RequestUpdateStatus , db: Session = Depends(get_d
 
 from src.useCases.todo.editTodoUseCase import EditTodoUseCase
 
-from src.infra.controller.todoDto import UpdateTodoDto
+from src.infra.controller.todoDto import UpdateTodoRequest, UpdateTodoResponse
 
-@router.put("/todo/update", response_model=None)
-async def listAllTodo(request: UpdateTodoDto , db: Session = Depends(get_db_session)):
+@router.put("/todo/update", response_model=UpdateTodoResponse)
+async def listAllTodo(request: UpdateTodoRequest , db: Session = Depends(get_db_session)):
     
     todoEntity =  await EditTodoUseCase(SqlAlchemyTodoRepository(db)).execute(request)
     
     return TodoMapper.DomainToHttp(todoEntity.data)
+
+from src.useCases.todo.removeTodoUseCase import RemoveTodoUseCase
+from src.infra.controller.todoDto import RemoveTodoRequest
+
+@router.delete("/todo/delete/{id}", response_model=None, )
+async def listAllTodo(id: str, db: Session = Depends(get_db_session)):
+    
+    todoEntity =  await RemoveTodoUseCase(SqlAlchemyTodoRepository(db)).execute(id)
+    

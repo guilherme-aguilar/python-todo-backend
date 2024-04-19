@@ -38,3 +38,9 @@ class SqlAlchemyTodoRepository(TodoRepository):
                     if value is not None:  # Verifica se o valor não é None
                         setattr(existing_todo, key, value)
                 db_session.commit()
+                
+    async def delete(self, id: str):
+        with get_db_session() as db_session:
+
+            db_session.query(TodoDatabaseSchema).filter_by(id=id).delete()
+            db_session.commit()
