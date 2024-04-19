@@ -10,5 +10,5 @@ router = APIRouter()
 def read_root():
     return {"Hello": "World"}
 
-#Import controller todo
+
 router.include_router(todo_router)

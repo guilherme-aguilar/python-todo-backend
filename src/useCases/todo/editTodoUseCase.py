@@ -22,14 +22,14 @@ class EditTodoUseCase:
         
         oldData : TodoEntity = await self.TodoRepository.findById(request.id)
         
-         # Construir o dicionário 'others' apenas com os campos opcionais presentes em request
+        
         others = {}
         if request.title is not None:
             others['title'] = request.title
         if request.description is not None:
             others['description'] = request.description
         
-        # Comparar oldData e others, caso tenha alterações de valores, os valores novos devem ser alocados
+
         for key, value in others.items():
             if getattr(oldData, key) != value:
                 setattr(oldData, key, value)

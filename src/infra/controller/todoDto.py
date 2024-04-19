@@ -8,7 +8,7 @@ class UpdateTodoRequest(BaseModel):
     title : Optional[str] = None
     description : Optional[str] = None
     
-class UpdateTodoResponse(BaseModel):
+class TodoResponse(BaseModel):
     id: str
     title: str
     description: str
