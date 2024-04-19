@@ -58,7 +58,6 @@ async def listAllTodo(request: UpdateTodoRequest , db: Session = Depends(get_db_
     return TodoMapper.DomainToHttp(todoEntity.data)
 
 from src.useCases.todo.removeTodoUseCase import RemoveTodoUseCase
-from src.infra.controller.todoDto import RemoveTodoRequest
 
 @router.delete("/todo/delete/{id}", response_model=None, )
 async def listAllTodo(id: str, db: Session = Depends(get_db_session)):
