@@ -69,7 +69,6 @@ class TodoEntity:
     def updated_at(self) -> datetime:
         return self.props.updated_at
 
-    @property
     def updated(self) -> None:
         self.props.updated_at = datetime.now()
 
@@ -78,7 +77,7 @@ class TodoEntity:
         self.updated()
 
     def setStatusCompleted(self):
-        self.props.status = "concluído"
+        self.props.status = "finalizado"
         self.updated()
 
     def to_model(self) -> TodoM:

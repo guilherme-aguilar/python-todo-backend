@@ -19,5 +19,4 @@ def get_db_session():
 def create_all_tables():
     Base.metadata.create_all(bind=engine)
 
-# Chama a função para criar as tabelas quando este arquivo é importado
 create_all_tables()

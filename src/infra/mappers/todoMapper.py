@@ -25,12 +25,12 @@ class TodoMapper:
         }
         
     @staticmethod
-    def DatabaseToDomain(raw: TodoEntity) -> dict:
+    def DatabaseToDomain(raw: TodoEntity) -> TodoEntity:
         return TodoEntity({
             "title": raw.title,
             "description": raw.description,
             "status": raw.status,
             "created_at":raw.created_at,
             "updated_at": raw.updated_at,
-        }, _id=raw.id)
+        }, raw.id)
         

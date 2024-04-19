@@ -2,9 +2,6 @@ from src.domain.repositories.todoRepository import TodoRepository
 from src.domain.models.todoEntity import TodoEntity
 from pydantic import BaseModel
 
-class Request(BaseModel):
-    title: str
-    description: str
 
 class Response(BaseModel):
     data: list[TodoEntity]
